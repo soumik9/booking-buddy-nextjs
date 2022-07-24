@@ -1,4 +1,5 @@
 class APIFeatures {
+    
     constructor(query, queryStr){
         this.query = query;
         this.queryStr = queryStr;
@@ -12,12 +13,19 @@ class APIFeatures {
             }
         } : {}
 
-        console.log('====================================');
-        console.log(location);
-        console.log('====================================');
-
         this.query = this.query.find({ ...location })
         return this
+    }
+
+    filter(){
+        const queryCopy = { ...this.queryStr }
+
+        // remove filed from query
+        const removeFileds = ['location']
+        removeFileds.forEach(el => delete queryCopy[el])
+
+        this.query = this.query.find(queryCopy);
+        return this;
     }
 }
 
