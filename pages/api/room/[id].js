@@ -1,14 +1,15 @@
 import nc from 'next-connect'
 import dbConnect from '../../../config/dbConnect'
 
-import { index, create } from '../../../controllers/roomController'
+import { single, update, destroy } from '../../../controllers/roomController'
 import onError from '../../../middlewares/errors'
 
 const handler = nc({ onError });
-
 dbConnect();
 
-handler.get(index)
-handler.post(create)
+handler.get(single)
+handler.put(update)
+handler.delete(destroy)
+
 
 export default handler;
