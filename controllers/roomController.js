@@ -5,8 +5,13 @@ import APIFeatures from '../utils/apiFeatures'
 
 // get all rooms
 const index = catchAsyncErrors( async (req, res) => {
-    const rooms = await Room.find();
-    res.status(200).json({ success: true, rooms, count: rooms.length, message: 'Rooms loaded successfully!' });
+
+    const apiFeatures = new APIFeatures(Room.find(), req.query).search();
+
+    const rooms = await apiFeatures.query;
+
+    // const rooms = await Room.find();
+    res.status(200).json({ success: true, count: rooms.length, rooms, message: 'Rooms loaded successfully!' });
 })
 
 // get single room
